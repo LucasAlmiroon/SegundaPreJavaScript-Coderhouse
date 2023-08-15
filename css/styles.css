@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.productos {
+    display: flex;
+    flex-direction: row;
+}
+
+.imagenes {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.imagenes img {
+    width: 150px;
+    height: 150px;
+    margin: 20px
+}
+
+.carrito {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
