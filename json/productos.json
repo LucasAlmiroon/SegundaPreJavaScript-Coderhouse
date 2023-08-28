@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "tipo": "Valija",
+        "marca": "Travel Tech",
+        "precio": 40000,
+        "descripcion": "Valija carry on, 8 ruedas",
+        "stock": 5,
+        "img": "img/valija.jpg"
+    },
+    {
+        "id": 2,
+        "tipo": "Valija",
+        "marca": "Primicia",
+        "precio": 80000,
+        "descripcion": "Valija carry on, 8 ruedas",
+        "stock": 2,
+        "img": "img/valija2.jpg"
+    },
+    {
+        "id": 3,
+        "tipo": "Mochila",
+        "marca": "Travel Tech",
+        "precio": 20000,
+        "descripcion": "Mochila portanotebook",
+        "stock": 15,
+        "img": "img/mochila.jpg"
+    },
+    {
+        "id": 4,
+        "tipo": "Mochila",
+        "marca": "Primicia",
+        "precio": 40000,
+        "descripcion": "Mochila portanotebook",
+        "stock": 1,
+        "img": "img/mochila2.jpg"
+    },
+    {
+        "id": 5,
+        "tipo": "Bolso",
+        "marca": "Nike",
+        "precio": 10000,
+        "descripcion": "Bolso deportivo",
+        "stock": 2,
+        "img": "img/bolso.jpg"
+    },
+    {
+        "id": 6,
+        "tipo": "Bolso",
+        "marca": "Primicia",
+        "precio": 25000,
+        "descripcion": "Bolso deportivo",
+        "stock": 53,
+        "img": "img/bolso2.jpg"
+    }
+]

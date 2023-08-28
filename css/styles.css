@@ -4,9 +4,52 @@ body {
     box-sizing: border-box;
 }
 
+#cuerpo {
+    display: flex;
+    flex-direction: row;
+}
+
+header ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+    list-style: none;
+}
+
+header ul li {
+    border: solid black 1px;
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h1,
+.formulario,
+p {
+    margin: 10%;
+    text-align: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario label {
+    margin: 10px;
+}
+
 .productos {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .imagenes {
@@ -16,9 +59,9 @@ body {
 }
 
 .imagenes img {
-    width: 150px;
-    height: 150px;
-    margin: 20px
+    width: 200px;
+    height: 200px;
+    margin: 20px;
 }
 
 .carrito {

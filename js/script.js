@@ -1,6 +1,6 @@
 class Producto {
-    
-    constructor (id, tipo, marca, precio, descripcion, stock, img) {
+
+    constructor(id, tipo, marca, precio, descripcion, stock, img) {
         this.id = id;
         this.tipo = tipo;
         this.marca = marca
@@ -10,39 +10,139 @@ class Producto {
         this.img = img
     }
 
-    descontarStock (){
+    descontarStock() {
         this.stock--
     }
 
 }
 
-
-
 let carrito = [];
 
 const productos = [];
+const peticion = async () => {
+    const respuesta = await fetch("json/productos.json")
+    const datos = await respuesta.json()
+    datos.forEach(producto => {
+        productos.push(producto);
+    });
 
-const link1 = "img/valija.jpg"
-const link2 = "img/mochila.jpg"
-const link3 ="img/bolso.jpg"
+    const productosPorDiv = 3; // Número de productos por cada div nuevo
+    cuerpo.removeChild(mensajeCarga);
+    // Iterar a través de los productos
+    productos.forEach((producto, index) => {
+        // Si es el primer producto o un múltiplo del número de productos por div
+        if (index % productosPorDiv === 0) {
+            // Crear un nuevo div para los productos
+            const nuevoDiv = document.createElement('div');
 
-const valija1 = new Producto (0, "Valija","Travel Tech", 40000, "Valija carry on, 8 ruedas", 5, link1);
-const mochila1 = new Producto (1,"Mochila", "Primicia", 30000,"Mochila portanotebook", 2, link2);
-const bolso1 = new Producto (2,"Bolso","Nike",21000,"Bolso deportivo", 10, link3);
+            // Agregar el nuevo div al contenedor
+            divImagenes.appendChild(nuevoDiv);
+        }
 
-productos.push(valija1,mochila1,bolso1);
+        // Crear el contenido para cada producto
+        const productoHTML = `
+        <div class="imagenes">
+            <img src="${producto.img}" alt="">
+            <button id="${producto.id}">Agregar al carrito</button> 
+        </div>`;
+
+        // Agregar el producto al div actual
+        const divActual = divImagenes.lastElementChild;
+        divActual.innerHTML += productoHTML;
+    });
+
+}
+//Simulo que tarda en cargar la peticion
+setTimeout(peticion, 3000)
 // DOM
 const d = document
 const b = d.body
-const h = d.head
+const h = d.headn
+
+//NavBar
+// Crear el elemento de navegación
+const nav = document.createElement("nav");
+nav.classList.add("navbar", "navbar-expand-lg", "navbar-light", "bg-light");
+
+// Crear el contenedor del contenido de la barra de navegación
+const container = document.createElement("div");
+container.classList.add("container");
+
+// Crear el enlace del logotipo
+const logoLink = document.createElement("a");
+logoLink.classList.add("navbar-brand");
+logoLink.href = "../index.html";
+logoLink.textContent = "Mi Sitio Web";
+container.appendChild(logoLink);
+
+// Crear el botón para el menú desplegable en dispositivos móviles
+const toggleButton = document.createElement("button");
+toggleButton.classList.add("navbar-toggler");
+toggleButton.type = "button";
+toggleButton.setAttribute("data-bs-toggle", "collapse");
+toggleButton.setAttribute("data-bs-target", "#navbarNav");
+toggleButton.setAttribute("aria-controls", "navbarNav");
+toggleButton.setAttribute("aria-expanded", "false");
+toggleButton.setAttribute("aria-label", "Toggle navigation");
+const toggleIcon = document.createElement("span");
+toggleIcon.classList.add("navbar-toggler-icon");
+toggleButton.appendChild(toggleIcon);
+container.appendChild(toggleButton);
+
+// Crear la lista de elementos de navegación
+const navList = document.createElement("ul");
+navList.classList.add("navbar-nav", "collapse", "navbar-collapse");
+navList.id = "navbarNav";
+
+const navItems = [
+    { text: "Inicio", href: "../index.html" },
+    { text: "Acerca de", href: "#" },
+    { text: "Servicios", href: "#" },
+    { text: "Contacto", href: "#" }
+];
+
+navItems.forEach(item => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("nav-item");
+    const link = document.createElement("a");
+    link.classList.add("nav-link");
+    link.href = item.href;
+    link.textContent = item.text;
+    listItem.appendChild(link);
+    navList.appendChild(listItem);
+});
+
+container.appendChild(navList);
+nav.appendChild(container);
+document.body.insertBefore(nav, b.firstChild);
+
+const cuerpo = document.getElementById("cuerpo");
+const mensajeCarga = document.createElement('h2');
+mensajeCarga.textContent = 'Cargando productos...';
+cuerpo.appendChild(mensajeCarga);
 let divImagenes = d.createElement('div')
 let divCarrito = d.createElement('div')
-b.appendChild(divImagenes);
-b.appendChild(divCarrito);
+let h1 = d.createElement('h1')
+b.insertBefore(h1, nav.nextSibling);
+d.getElementById("cuerpo").appendChild(divImagenes);
+d.getElementById("cuerpo").appendChild(divCarrito);
 divImagenes.classList.add('productos');
 divCarrito.classList.add('carrito');
+
+
 //Verifica si ya hay un carrito en la session.
 const carritoJSON = sessionStorage.getItem("Carrito");
+
+if (sessionStorage.getItem("usuario")) {
+    h1.innerHTML = "Bienvenido " + sessionStorage.getItem("usuario") + " !";
+} else {
+    const registroButton = document.createElement("a");
+    registroButton.href = "../login.html";
+    registroButton.classList.add("btn", "btn-primary", "ms-auto");
+    container.appendChild(registroButton);
+    registroButton.textContent = "Registrarse";
+}
+
 if (carritoJSON) {
     carrito = JSON.parse(carritoJSON);
     actualizarCarritoEnDOM()
@@ -59,12 +159,7 @@ divImagenes.addEventListener('click', (event) => {
 });
 
 
-productos.forEach(producto => {
-    divImagenes.innerHTML += `  <div class="imagenes">
-                                <img src="${producto.img}" alt="">
-                                <button id="${producto.id}"> Agregar al carrito</button> 
-                            </div>`;
-});
+
 
 function agregarAlCarrito(id) {
     const productoAgregado = productos.find(producto => producto.id === id);
@@ -76,7 +171,7 @@ function agregarAlCarrito(id) {
                 carrito[index].cantidad++;
             } else {
                 Swal.fire('No hay mas stock')
-;
+                    ;
             }
         } else {
             if (productoAgregado.stock > 0) {
@@ -104,17 +199,17 @@ function actualizarCarritoEnDOM() {
             </p>`;
         total += producto.precio * producto.cantidad;
     });
-
-    // Agrega el total al final del carrito utilizando JSON
     divCarrito.innerHTML += `<p>Total: ${total}</p>
                                 <button id = "eliminar"> Eliminar </button>`;
     d.getElementById("eliminar").addEventListener('click', () => vaciarCarrito());
 }
-function vaciarCarrito(){
+
+function vaciarCarrito() {
     carrito = [];
     const carritoJSON = JSON.stringify(carrito);
     sessionStorage.setItem("Carrito", carritoJSON);
     actualizarCarritoEnDOM();
+    Swal.fire('Se vacio el carrito')
 }
 
 function guardarCarritoEnSessionStorage() {
